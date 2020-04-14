@@ -11,7 +11,7 @@ import {
   GET_REPOS,
 } from './types';
 
-import setAuthToken from '../Utils/setAuthToken';
+//import setAuthToken from '../Utils/setAuthToken';
 
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
