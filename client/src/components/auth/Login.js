@@ -7,20 +7,19 @@ import { login } from '../../actions/auth';
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
-    password: ''
+    password: '',
   });
 
   const { email, password } = formData;
 
-  const onChange = event =>
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async event => {
-    event.preventDefault();
+  const onSubmit = async (e) => {
+    e.preventDefault();
     login(email, password);
   };
 
-  // Redirect if logged in
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
@@ -28,28 +27,27 @@ const Login = ({ login, isAuthenticated }) => {
   return (
     <Fragment>
       <h1 className='large text-primary'>Sign In</h1>
-
       <p className='lead'>
-        <i className='fas fa-user-circle'></i> Sign Into Your Account
+        <i className='fas fa-user' /> Sign Into Your Account
       </p>
-      <form className='form' onSubmit={onSubmit}>
+      <form className='form' onSubmit={(e) => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='email'
             placeholder='Email Address'
             name='email'
             value={email}
-            onChange={onChange}
+            onChange={(e) => onChange(e)}
             required
           />
         </div>
         <div className='form-group'>
           <input
             type='password'
-            name='password'
             placeholder='Password'
+            name='password'
             value={password}
-            onChange={onChange}
+            onChange={(e) => onChange(e)}
             minLength='6'
           />
         </div>
@@ -61,13 +59,14 @@ const Login = ({ login, isAuthenticated }) => {
     </Fragment>
   );
 };
+
 Login.propTypes = {
   login: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
 export default connect(mapStateToProps, { login })(Login);

@@ -15,11 +15,11 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   const { name, email, password, password2 } = formData;
 
-  const onChange = event =>
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+  const onChange = e =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const onSubmit = async event => {
-    event.preventDefault();
+  const onSubmit = async e => {
+    e.preventDefault();
     if (password !== password2) {
       setAlert('Passwords do not match', 'danger');
     } else {
@@ -27,7 +27,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     }
   };
 
-  // Redirect if Register in
   if (isAuthenticated) {
     return <Redirect to='/dashboard' />;
   }
@@ -35,19 +34,17 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   return (
     <Fragment>
       <h1 className='large text-primary'>Sign Up</h1>
-
       <p className='lead'>
-        <i className='fas fa-user-circle'></i> Create Your Account
+        <i className='fas fa-user' /> Create Your Account
       </p>
-      <form className='form' onSubmit={onSubmit}>
+      <form className='form' onSubmit={e => onSubmit(e)}>
         <div className='form-group'>
           <input
             type='text'
             placeholder='Name'
             name='name'
             value={name}
-            onChange={onChange}
-            required
+            onChange={e => onChange(e)}
           />
         </div>
         <div className='form-group'>
@@ -56,32 +53,29 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             placeholder='Email Address'
             name='email'
             value={email}
-            onChange={onChange}
-            required
+            onChange={e => onChange(e)}
           />
           <small className='form-text'>
-            This site uses Gravatar, so if you want a profile image, use a
+            This site uses Gravatar so if you want a profile image, use a
             Gravatar email
           </small>
         </div>
         <div className='form-group'>
           <input
             type='password'
-            name='password'
             placeholder='Password'
+            name='password'
             value={password}
-            onChange={onChange}
-            minLength='6'
+            onChange={e => onChange(e)}
           />
         </div>
         <div className='form-group'>
           <input
             type='password'
-            name='password2'
             placeholder='Confirm Password'
+            name='password2'
             value={password2}
-            onChange={onChange}
-            minLength='6'
+            onChange={e => onChange(e)}
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
